@@ -9,6 +9,10 @@ interface Tool {
   company: string;
 }
 
+// Customized Tailwind class for button
+const baseButton =
+  "px-4 py-2 inline-flex items-center justify-center text-gray-200 font-bold bg-white/10 shadow rounded-xl hover:cursor-pointer";
+
 export default function ToolList() {
   const [tools, setTools] = useState<Tool[]>([]);
 
@@ -16,50 +20,36 @@ export default function ToolList() {
     api.get("/tools").then((res) => setTools(res.data));
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("Are you sure you want to delete this tool?")) return;
-    await api.delete(`/tools/${id}`);
-    setTools(tools.filter((t) => t.id !== id));
-  };
-
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Your Tools</h1>
+      {/* Add Tool button */}
+      <div className="flex justify-center mb-10">
+        <Link to="/create" className={baseButton}>
+          + Add Tool
+        </Link>
+      </div>
 
+      {/* Tools grid */}
       {tools.length === 0 ? (
         <p className="text-gray-600">No tools yet. Click “+ Add Tool”.</p>
       ) : (
-        <ul className="grid gap-4">
+        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {tools.map((t) => (
             <li
               key={t.id}
-              className="p-4 bg-white rounded shadow hover:shadow-md transition"
+              className="p-4 bg-white/10 backdrop-blur shadow rounded-xl hover:shadow-lg hover:scale-105 transition-transform duration-150"
             >
-              <div className="flex justify-between items-center">
+              <div className="flex flex-col h-full justify-between">
                 <div>
                   <Link
                     to={`/tools/${t.id}`}
-                    className="text-lg font-semibold text-blue-600 hover:underline"
+                    className="text-lg font-semibold text-white hover:underline"
                   >
                     {t.name}
                   </Link>
                   <p className="text-sm text-gray-500">
                     {t.category} — {t.company}
                   </p>
-                </div>
-                <div className="space-x-2">
-                  <Link
-                    to={`/edit/${t.id}`}
-                    className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                  >
-                    Edit
-                  </Link>
-                  <button
-                    onClick={() => handleDelete(t.id)}
-                    className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                  >
-                    Delete
-                  </button>
                 </div>
               </div>
             </li>

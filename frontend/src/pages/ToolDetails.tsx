@@ -13,6 +13,8 @@ interface Tool {
   company: string;
 }
 
+const baseButton = "inline-flex items-center justify-center w-20 h-8 text-md font-medium border border-gray-200 bg-gray-50 shadow rounded hover:cursor-pointer";
+
 export default function ToolDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -63,16 +65,10 @@ export default function ToolDetails() {
 
       <div className="flex gap-2 mt-4">
         <Link
-          to={`/edit/${tool.id}`}
-          className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-        >
-          Edit
+          to={`/edit/${tool.id}`} className={baseButton}>Edit
         </Link>
         <button
-          onClick={handleDelete}
-          className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-        >
-          Delete
+          onClick={handleDelete} className={baseButton}>Delete
         </button>
       </div>
     </div>

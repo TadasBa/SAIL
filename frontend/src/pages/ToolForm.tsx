@@ -3,6 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import api from "../api";
 import { useEffect } from "react";
 
+const baseButton = " w-full inline-flex items-center justify-center h-8 text-md font-medium border border-gray-200 bg-gray-50 shadow rounded hover:cursor-pointer";
+
 interface ToolFormData {
   name: string;
   description: string;
@@ -55,18 +57,19 @@ export default function ToolForm() {
         required
       />
       <select {...register("category")} className="w-full border p-2 rounded">
+        <option value="" disabled selected>Category</option>
         <option value="chatbot">Chatbot</option>
         <option value="image">Image</option>
         <option value="video">Video</option>
         <option value="programing">Programming</option>
         <option value="other">Other</option>
       </select>
-      <input
-        {...register("pricing")}
-        placeholder="Pricing"
-        className="w-full border p-2 rounded"
-        required
-      />
+      
+      <select {...register("pricing")} className="w-full border p-2 rounded">
+        <option value="" disabled selected>Pricing</option>
+        <option value="free">Free</option>
+        <option value="paid">Paid</option>
+      </select>
       <input
         {...register("company")}
         placeholder="Company"
@@ -82,13 +85,13 @@ export default function ToolForm() {
       <textarea
         {...register("description")}
         placeholder="Description"
-        className="w-full border p-2 rounded"
+        className="w-full h-20 border p-2 rounded"
         required
       />
 
       <button
         type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        className={baseButton}
       >
         Save
       </button>
