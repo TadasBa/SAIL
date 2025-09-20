@@ -4,7 +4,6 @@ import api from "../api";
 import { useEffect } from "react";
 
 interface ToolFormData {
-  id: number;
   name: string;
   description: string;
   category: string;
@@ -35,11 +34,26 @@ export default function ToolForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow p-6 rounded max-w-xl mx-auto space-y-4">
-      <h2 className="text-2xl font-bold">{id ? "Edit Tool" : "Add Tool"}</h2>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-white shadow p-6 rounded max-w-lg mx-auto space-y-4"
+    >
+      <h2 className="text-2xl font-bold">
+        {id ? "Edit Tool" : "Add New Tool"}
+      </h2>
 
-      <input {...register("name")} placeholder="Name" className="w-full border p-2 rounded" />
-      <input {...register("website")} placeholder="Website" className="w-full border p-2 rounded" />
+      <input
+        {...register("name")}
+        placeholder="Name"
+        className="w-full border p-2 rounded"
+        required
+      />
+      <input
+        {...register("website")}
+        placeholder="Website"
+        className="w-full border p-2 rounded"
+        required
+      />
       <select {...register("category")} className="w-full border p-2 rounded">
         <option value="chatbot">Chatbot</option>
         <option value="image">Image</option>
@@ -47,12 +61,35 @@ export default function ToolForm() {
         <option value="programing">Programming</option>
         <option value="other">Other</option>
       </select>
-      <input {...register("pricing")} placeholder="Pricing" className="w-full border p-2 rounded" />
-      <input {...register("company")} placeholder="Company" className="w-full border p-2 rounded" />
-      <input {...register("released")} type="date" className="w-full border p-2 rounded" />
-      <textarea {...register("description")} placeholder="Description" className="w-full border p-2 rounded" />
+      <input
+        {...register("pricing")}
+        placeholder="Pricing"
+        className="w-full border p-2 rounded"
+        required
+      />
+      <input
+        {...register("company")}
+        placeholder="Company"
+        className="w-full border p-2 rounded"
+        required
+      />
+      <input
+        {...register("released")}
+        type="date"
+        className="w-full border p-2 rounded"
+        required
+      />
+      <textarea
+        {...register("description")}
+        placeholder="Description"
+        className="w-full border p-2 rounded"
+        required
+      />
 
-      <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+      <button
+        type="submit"
+        className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+      >
         Save
       </button>
     </form>

@@ -6,17 +6,24 @@ import ToolDetails from "./pages/ToolDetails";
 export default function App() {
   return (
     <Router>
-      <div className="min-h-screen bg-gray-100 text-gray-800">
-        <header className="bg-blue-600 text-white p-4 shadow">
-          <nav className="max-w-4xl mx-auto flex justify-between">
-            <Link to="/" className="font-bold text-lg">AI Tools</Link>
-            <Link to="/create" className="bg-white text-blue-600 px-3 py-1 rounded shadow hover:bg-gray-100">
+      <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col">
+        {/* Navbar */}
+        <header className="bg-white shadow">
+          <nav className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
+            <Link to="/" className="font-bold text-xl text-blue-600">
+              AI Tools
+            </Link>
+            <Link
+              to="/create"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
               + Add Tool
             </Link>
           </nav>
         </header>
 
-        <main className="max-w-4xl mx-auto p-6">
+        {/* Main content */}
+        <main className="flex-1 max-w-5xl mx-auto p-6 w-full">
           <Routes>
             <Route path="/" element={<ToolList />} />
             <Route path="/create" element={<ToolForm />} />
