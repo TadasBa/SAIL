@@ -9,9 +9,10 @@ interface Tool {
   company: string;
 }
 
-// Customized Tailwind class for button
-const baseButton =
-  "px-4 py-2 inline-flex items-center justify-center text-gray-200 font-bold bg-white/10 shadow rounded-xl hover:cursor-pointer";
+const btn =
+  "inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 px-4 py-2 text-sm font-medium text-slate-100";
+const card =
+  "p-4 rounded-2xl border-1 border-white/10 bg-white/5 hover:bg-white/10 hover:scale-103 transition shadow";
 
 export default function ToolList() {
   const [tools, setTools] = useState<Tool[]>([]);
@@ -21,37 +22,24 @@ export default function ToolList() {
   }, []);
 
   return (
-    <div>
-      {/* Add Tool button */}
-      <div className="flex justify-center mb-10">
-        <Link to="/create" className={baseButton}>
-          + Add Tool
-        </Link>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-xl font-semibold">Tools</h2>
+        <Link to="/create" className={btn}>+ Add Tool</Link>
       </div>
 
-      {/* Tools grid */}
       {tools.length === 0 ? (
-        <p className="text-gray-600">No tools yet. Click “+ Add Tool”.</p>
+        <p className="text-slate-300/80">No tools yet. Click “+ Add Tool”.</p>
       ) : (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <ul className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {tools.map((t) => (
-            <li
-              key={t.id}
-              className="p-4 bg-white/10 backdrop-blur shadow rounded-xl hover:shadow-lg hover:scale-105 transition-transform duration-150"
-            >
-              <div className="flex flex-col h-full justify-between">
-                <div>
-                  <Link
-                    to={`/tools/${t.id}`}
-                    className="text-lg font-semibold text-white hover:underline"
-                  >
-                    {t.name}
-                  </Link>
-                  <p className="text-sm text-gray-500">
-                    {t.category} — {t.company}
-                  </p>
-                </div>
-              </div>
+            <li key={t.id} className={card}>
+              <Link to={`/tools/${t.id}`} className="text-lg font-semibold text-white hover:underline">
+                {t.name}
+              </Link>
+              <p className="text-sm text-slate-300/80">
+                {t.category} — {t.company}
+              </p>
             </li>
           ))}
         </ul>

@@ -13,7 +13,14 @@ interface Tool {
   company: string;
 }
 
-const baseButton = "inline-flex items-center justify-center w-20 h-8 text-md font-medium border border-gray-200 bg-gray-50 shadow rounded hover:cursor-pointer";
+const btn =
+  "inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/10 hover:bg-white/15 px-3 py-2 text-sm font-medium text-slate-100";
+
+const fmt = (d?: string) => {
+  if (!d) return "-";
+  const dt = new Date(d);
+  return isNaN(dt.getTime()) ? d : dt.toLocaleDateString();
+};
 
 export default function ToolDetails() {
   const { id } = useParams();
@@ -21,55 +28,37 @@ export default function ToolDetails() {
   const [tool, setTool] = useState<Tool | null>(null);
 
   useEffect(() => {
-    api
-      .get(`/tools/${id}`)
-      .then((res) => setTool(res.data))
-      .catch(() => setTool(null));
+    api.get(`/tools/${id}`).then((res) => setTool(res.data)).catch(() => setTool(null));
   }, [id]);
 
   const handleDelete = async () => {
     if (!tool) return;
-    if (!confirm("Are you sure you want to delete this tool?")) return;
+    if (!confirm("Delete this tool?")) return;
     await api.delete(`/tools/${tool.id}`);
     navigate("/");
   };
 
-  if (!tool) return <p className="text-gray-600">Tool not found.</p>;
+  if (!tool) return <p className="text-slate-300/80">Tool not found.</p>;
 
   return (
-    <div className="bg-white shadow p-6 rounded max-w-lg mx-auto space-y-2">
-      <h2 className="text-2xl font-bold">{tool.name}</h2>
-      <p>{tool.description}</p>
-      <p>
-        <strong>Category:</strong> {tool.category}
-      </p>
+    <div className="bg-white/5 text-white backdrop-blur shadow p-6 rounded-2xl border border-white/10 max-w-xl">
+      <h2 className="text-2xl font-bold mb-2">{tool.name}</h2>
+      <p className="text-slate-300/90 mb-3">{tool.description}</p>
+
+      <p><strong>Category:</strong> {tool.category}</p>
       <p>
         <strong>Website:</strong>{" "}
-        <a
-          href={tool.website}
-          className="text-blue-600 underline"
-          target="_blank"
-        >
+        <a href={tool.website} className="underline" target="_blank" rel="noreferrer">
           {tool.website}
         </a>
       </p>
-      <p>
-        <strong>Pricing:</strong> {tool.pricing}
-      </p>
-      <p>
-        <strong>Company:</strong> {tool.company}
-      </p>
-      <p>
-        <strong>Released:</strong> {tool.released}
-      </p>
+      <p><strong>Pricing:</strong> {tool.pricing}</p>
+      <p><strong>Company:</strong> {tool.company}</p>
+      <p><strong>Released:</strong> {fmt(tool.released)}</p>
 
-      <div className="flex gap-2 mt-4">
-        <Link
-          to={`/edit/${tool.id}`} className={baseButton}>Edit
-        </Link>
-        <button
-          onClick={handleDelete} className={baseButton}>Delete
-        </button>
+      <div className="flex gap-2 pt-4">
+        <Link to={`/edit/${tool.id}`} className={btn}>Edit</Link>
+        <button onClick={handleDelete} className={btn}>Delete</button>
       </div>
     </div>
   );
