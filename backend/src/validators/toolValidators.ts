@@ -1,6 +1,7 @@
+// Class for validating the AI tool atributes when it is being created or updated, the validator is triggered on http request 
 import { body } from "express-validator";
+import { allowedCategories } from "../types/Categories";
 
-const allowedCategories = ["chatbot", "image", "video", "programing", "other"];
 const allowedPricing = ["free", "paid"];
 
 export const createToolValidator = [
@@ -10,7 +11,7 @@ export const createToolValidator = [
   body("description").isString().notEmpty(),
   body("pricing").isIn(allowedPricing),
   body("company").isString().notEmpty(),
-  body("released").isISO8601(), // expects valid date string
+  body("released").isISO8601(),
 ];
 
 export const updateToolValidator = [

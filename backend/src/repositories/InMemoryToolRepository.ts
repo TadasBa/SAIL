@@ -7,7 +7,7 @@ import { IToolRepository } from "./IToolRepository";
 export class InMemoryToolRepository implements IToolRepository
 {
     private tools: AITool[] = [];
-    private currentId = 0;
+    private currentId = 1;
 
     async getAll(): Promise<AITool[]> {
         return this.tools;

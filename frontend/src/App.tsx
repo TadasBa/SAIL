@@ -12,7 +12,6 @@ export default function App() {
         <Route path="create" element={<ToolForm />} />
         <Route path="edit/:id" element={<ToolForm />} />
         <Route path="tools/:id" element={<ToolDetails />} />
-        {/* fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>
     </Routes>

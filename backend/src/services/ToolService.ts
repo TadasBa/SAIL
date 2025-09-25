@@ -1,5 +1,4 @@
 // Class that contains available services (bussiness level methods), that will serve as a middle person and will call ToolRepository methods 
-// It can contain business logic, but for now it just calls the repository.
 
 import { AITool } from "../types/AITool";
 import { IToolRepository } from "../repositories/IToolRepository";
@@ -27,16 +26,21 @@ export class ToolService {
   }
 
   // Update an existing tool
-  async updateTool(tool: AITool): Promise<void> {
+  async updateTool(tool: AITool): Promise<boolean> {
     const existing = await this.toolRepository.getById(tool.id);
-    if (!existing) return;
+    if (!existing) return false;
 
     const updated = { ...existing, ...tool };
     await this.toolRepository.update(updated);
+    return true;
   }
 
   // Remove a tool
-  async removeTool(id: number): Promise<void> {
+  async removeTool(id: number): Promise<boolean> {
+    const existing = await this.toolRepository.getById(id);
+    if (!existing) return false;
+
     await this.toolRepository.delete(id);
+    return true;
   }
 }

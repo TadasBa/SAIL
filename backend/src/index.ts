@@ -1,12 +1,12 @@
-// index.ts
+// create Express app, mount routers, error handler, listen
 import express from "express";
 import { container } from "./container";
 import { scopePerRequest } from "awilix-express";
 import { toolRoutes } from "./controllers/toolRoutes";
 import cors from "cors";
 
-const app = express();
-app.use(cors());
+const app = express();  // creates my server
+app.use(cors());        // To allow calling http://localhost:3000 from http://localhost:5173
 app.use(express.json());
 app.use(scopePerRequest(container));
 
