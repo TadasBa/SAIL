@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node src/index.ts"
+    "dev": "ts-node src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "test": "npm run build && jest --runInBand",
+    "coverage": "npm run build && jest --coverage --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +19,8 @@
     "@types/express": "^5.0.3",
     "@types/express-validator": "^2.20.33",
     "@types/node": "^24.5.1",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.2"
   },
