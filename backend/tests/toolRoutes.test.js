@@ -18,7 +18,7 @@ function tool(overrides = {}) {
 }
 
 describe("Tools API (public contracts)", () => {
-  const app = createApp(); // fresh in-memory app (and DI) for this suite
+  const app = createApp();
 
   it("GET /tools -> [] initially", async () => {
     const res = await request(app).get("/tools");
@@ -72,7 +72,7 @@ describe("Tools API (public contracts)", () => {
     expect(missing.status).toBe(404);
   });
 
-  // -------- Validation & error paths (contract completeness) --------
+  // -------- Validation & error paths --------
 
   it("GET /tools/:id 404 for non-existent", async () => {
     const res = await request(app).get("/tools/999999");

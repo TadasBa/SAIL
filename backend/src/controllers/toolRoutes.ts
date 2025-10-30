@@ -1,5 +1,3 @@
-// Class that uses Express to handle http requests/responses
-
 import { Router, Request, Response, NextFunction } from "express";
 import { validationResult } from "express-validator";
 import { createToolValidator, updateToolValidator } from "../validators/toolValidators";
@@ -8,7 +6,7 @@ import { allowedCategories } from "../types/Categories";
 const router = Router();
 
 
-// GET /tools/categories (gets predifined tool categories)
+// GET /tools/categories
 router.get("/categories", (_req: Request, res: Response) => {
   res.json(allowedCategories);
 });
